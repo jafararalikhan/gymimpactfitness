@@ -56,14 +56,24 @@
               <li><a href="#">View Profile</a></li>
             </ul>
           </li>
+          {% if not request.user.is_authenticated %}
           <li><a class="nav-link scrollto" href="/achivements">Gym Awards</a></li>
+          {% else %}
+          <li><a class="nav-link scrollto" href="/logout">LogOut</a></li>
+          {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
+       {% if not request.user.is_authenticated %}
+       
       <a href="/signup" class="get-started-btn scrollto">SignIn</a>
+      {% else %}
+      <a href="/" class="get-started-btn scrollto">Welcome</a>
+      {% endif %}
+
 
     </div>
+
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
