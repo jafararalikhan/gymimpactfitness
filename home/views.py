@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+from home.models import Contact
 # Create your views here.
 def home(request):
     return render(request,'index.html')
@@ -59,3 +60,16 @@ def handleLogout(request):
     logout(request)
     messages.success(request, "Logout Success")
     return redirect('/login')
+
+def contact(request):
+    if request.method=='POST':
+        name=request.POST.get('fullname')
+        email=request.POST.get('email')
+        number=request.POST.get('num')
+        desc=request.POST.get('desc')
+        myquery=(Contact(name=name,email=email,phonenumber=number,description=desc))
+        myquery.save()
+        messages.info(request,"Thank for Contacting us we will get back you soon")
+        return redirect('/contact')
+    return render(request, 'contact.html')
+    
