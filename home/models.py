@@ -9,3 +9,37 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email
+
+class Enrollment(models.Model):        
+    FullName=models.CharField(max_length=25)
+    Email=models.EmailField()
+    Gender=models.CharField(max_length=25)
+    PhoneNumber=models.CharField(max_length=12)
+    DOB=models.DateField()
+    SelectMembershipplan=models.CharField(max_length=200)
+    SelectTrainer=models.CharField(max_length=55)
+    Reference=models.CharField(max_length=55)
+    Address=models.TextField()
+    paymentStatus=models.CharField(max_length=55,blank=True,null=True)
+    Price=models.IntegerField(max_length=55,blank=True,null=True)
+    DueDate=models.DateTimeField(blank=True,null=True)
+    timeStamp=models.DateTimeField(auto_now_add=True,blank=True,)
+
+    def __str__(self):
+        return self.FullName
+
+class Trainer(models.Model):
+    name=models.CharField(max_length=55)
+    gender=models.CharField(max_length=25)
+    phone=models.CharField(max_length=25)
+    salary=models.IntegerField(max_length=25)
+    timeStamp=models.DateTimeField(auto_now_add=True,blank=True)
+    def __str__(self):
+        return self.name
+
+class MembershipPlan(models.Model):
+    plan=models.CharField(max_length=185)
+    price=models.IntegerField(max_length=55)
+
+    def __int__(self):
+        return self.id
