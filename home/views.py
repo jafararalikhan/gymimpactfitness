@@ -7,6 +7,13 @@ from home.models import Contact,Enrollment,MembershipPlan,Trainer
 def home(request):
     return render(request,'index.html')
 
+def profile(request):
+    if not request.user.is_authenticated:
+        messages.warning(request,"Please Login and Try Again")
+        return redirect('/login')
+
+    return render(request, "profile.html")
+
 def signup(request):
     if request.method=="POST":
         username=request.POST.get('usernumber')
