@@ -43,3 +43,21 @@ class MembershipPlan(models.Model):
 
     def __int__(self):
         return self.id
+
+
+class Gallery(models.Model):
+    title=models.CharField(max_length=100)
+    img=models.ImageField(upload_to='gallery')
+    timeStamp=models.DateTimeField(auto_now_add=True,blank=True)
+    def __int__(self):
+        return self.id
+
+class Attendance(models.Model):
+    Selectdate=models.DateTimeField(auto_now_add=True)
+    phonenumber=models.CharField(max_length=15)
+    Login=models.CharField(max_length=200)
+    Logout=models.CharField(max_length=200)
+    SelectWorkout=models.CharField(max_length=200)
+    TrainedBy=models.CharField(max_length=200)
+    def __int__(self):
+        return self.id

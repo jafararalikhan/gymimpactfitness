@@ -9,4 +9,7 @@ urlpatterns = [
     path('contact',views.contact, name="contact"),
     path('join',views.enroll, name="join"),
     path('profile',views.profile, name="profile"),
+    path('gallery',views.gallery, name="gallery"),
+    path('gallery',views.gallery, name="gallery"),
+    path('attendance',views.attendance, name='attendance')
 ]

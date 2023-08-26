@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from home.models import Contact,Enrollment,MembershipPlan,Trainer
+from home.models import Contact,Enrollment,MembershipPlan,Trainer,Gallery,Attendance
 # Create your views here.
 def home(request):
     return render(request,'index.html')
@@ -11,8 +11,37 @@ def profile(request):
     if not request.user.is_authenticated:
         messages.warning(request,"Please Login and Try Again")
         return redirect('/login')
+    user_phone=request.user
+    posts=Enrollment.objects.filter(PhoneNumber=user_phone)
+    attendance=Attendance.objects.filter(phonenumber=user_phone)
+    print(posts)
+    context={"posts":posts,"attendance":attendance}
 
-    return render(request, "profile.html")
+    return render(request, "profile.html", context)
+
+def gallery(request):
+    posts=Gallery.objects.all()
+    context={"posts":posts}
+    return render(request,"gallery.html",context)
+
+def attendance(request):
+    if not request.user.is_authenticated:
+        messages.warning(request,"Please Login and Try Again")
+        return redirect('/login')
+    SelectTrainer=Trainer.objects.all()
+    context={"SelectTrainer":SelectTrainer}
+    if request.method=="POST":
+        phonenumber=request.POST.get('PhoneNumber')
+        Login=request.POST.get('logintime')
+        Logout=request.POST.get('loginout')
+        SelectWorkout=request.POST.get('workout')
+        TrainedBy=request.POST.get('trainer')
+        query=Attendance(phonenumber=phonenumber,Login=Login,Logout=Logout,SelectWorkout=SelectWorkout,TrainedBy=TrainedBy)
+        query.save()
+        messages.warning(request,"Attendace Applied Success")
+        return redirect('/attendance')
+    return render(request,"attendance.html",context)
+
 
 def signup(request):
     if request.method=="POST":
