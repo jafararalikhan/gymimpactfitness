@@ -7,6 +7,11 @@ from home.models import Contact,Enrollment,MembershipPlan,Trainer,Gallery,Attend
 def home(request):
     return render(request,'index.html')
 
+def about(request):
+    return render(request, 'about.html')
+
+def services(request):
+    return render(request, 'services.html')
 def profile(request):
     if not request.user.is_authenticated:
         messages.warning(request,"Please Login and Try Again")
